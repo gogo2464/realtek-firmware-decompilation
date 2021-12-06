@@ -1,0 +1,37 @@
+name: Recompile on Ubuntu Xenial
+
+on: push
+
+jobs:
+    recompile:
+        runs-on: ubuntu-18.04
+        steps:
+          - name: move
+            uses: actions/checkout@v2
+            
+          - name: install radare2
+            run: |
+              git clone https://github.com/radareorg/radare2/
+              cd radare2
+              git fetch origin pull/19539/head:stable_r2_version
+              git checkout stable_r2_version
+              sh ./sys/install.sh
+              cd ..
+        
+          - name: set-test-terminal-language
+            run: export LC_ALL=C
+            
+          - name: deploy
+            run: |
+              rasm2 -a 8051 -o 0x8000 -f MP_8192E_FW_NIC.asm -B  > recompiled-firmware.bin
+
+          - name: check-integrity-job
+            run: |
+              if [ "$(diff -s MP_8192E_FW_NIC.bin recompiled-firmware.bin)" != "Binary files MP_8192E_FW_NIC.bin and recompiled-firmware.bin differ" ]
+              then
+                echo "OK"
+              else
+                radiff2 -q -D MP_8192E_FW_NIC.bin recompiled-firmware.bin
+                echo "failed"
+                exit -1
+              fi
