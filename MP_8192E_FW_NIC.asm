@@ -1,5 +1,5 @@
 ajmp 0x8792
-jbc 0x20.0, 0x8018
+jbc 0x20.0, first_label
 nop
 nop
 nop
@@ -14,6 +14,7 @@ nop
 nop
 nop
 nop
+first_label:
 nop
 nop
 nop
