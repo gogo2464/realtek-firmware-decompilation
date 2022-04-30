@@ -10247,6 +10247,7 @@ mov r7, a
 mov a, #0x01
 mov r6, #0x00
 mov r0, 0x07
+unknow_function_fcn.0000c47b:
 inc r0
 sjmp 0xc483
 clr c
@@ -10262,7 +10263,7 @@ mov r6, a
 mov a, r7
 anl a, r3
 orl a, r6
-jnz 0xc49a
+jnz end_fcn.0000c47b
 mov a, #0x14
 add a, r4
 mov 0x82, a
@@ -10271,6 +10272,7 @@ addc a, #0x9e
 mov 0x83, a
 clr a
 movx @dptr, a
+end_fcn.0000c47b:
 ret
 mov 0x52, r7
 mov 0xf0, #0x05
@@ -10594,7 +10596,7 @@ movx @dptr, a
 mov a, r6
 jz 0xc6ee
 mov r7, 0x51
-acall 0xc47b
+acall unknow_function_fcn.0000c47b
 ret
 setb c
 jbc 0xa8.7, 0xc6f4
