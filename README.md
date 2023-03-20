@@ -43,6 +43,20 @@ Disassembled/recompiled with `radare2`.
 
 * [radare2](https://github.com/radareorg/radare2/)
 
+with the help of the commands 
+
+```bash
+git clone https://github.com/radareorg/radare2/
+cd radare2
+git fetch origin pull/19539/head:stable_r2_version
+git checkout stable_r2_version
+sh ./sys/install.sh
+cd ..
+
+radare2 -a 8051 -m 0x8000 -e scr.color=0 -qc "pI $(rabin2 -Z MP_8192E_FW_NIC.bin)" MP_8192E_FW_NIC.bin > recompiled-firmware.asm
+```
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
